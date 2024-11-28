@@ -1,144 +1,68 @@
-nav {
-    background-color: #337ab7;
-    color: #fff;
+  nav {
+    background-color: #333;
+    color: white;
     padding: 1em;
-    text-align: center;
+    position: relative;
   }
-  
+
   nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  
+
   nav li {
+    position: relative;
+  }
+
+  /* Botón de menú hamburguesa */
+  .menu-toggle {
+    cursor: pointer;
     display: inline-block;
-    margin-right: 20px;
   }
-  
-  nav a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  nav a:hover {
-    color: #ccc;
-  }
-  
-  .navbar-brand img {
-    margin-right: 10px;
-  }
-  
-  .navbar-toggler {
-    border-color: #fff;
-  }
-  
-  .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23fff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-  }
-  
-  .navbar-toggler:focus {
-    outline: none;
-  }
-  
-  .navbar-light .navbar-toggler {
-    color: #fff;
-    border-color: #fff;
-  }
-  
-  .form-inline .form-control {
-    border-radius: 4px;
-    border: none;
-    padding: 10px;
-    background-color: #f7f7f7;
-    color: #333;
-  }
-  
-  .form-inline .form-control:focus {
-    border-color: #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-inline .btn {
-    border-radius: 4px;
-    border: none;
-    padding: 10px;
-    background-color: #337ab7;
-    color: #fff;
-  }
-  
-  .form-inline .btn:hover {
-    background-color: #23527c;
-  }
-  
-  .fas {
-    margin-right: 10px;
-  }
-  
-  .boton-mas-info {
-    background-color: #FFFF00; /* Amarillo */
-    color: #000; /* Negro */
-    margin-bottom: 10px;
-    padding: 10px 20px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .boton-ubicacion {
-    background-color: #03A9F4; /* Azul */
-    color: #fff; /* Blanco */
-    margin-bottom: 10px;
-    padding: 10px 20px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  .card-img-top {
-    height: 200px;
-    object-fit: cover;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-  
-  .card-body {
-    padding: 20px;
-  }
-  
-  .card-title {
+
+  .menu-toggle i {
     font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
+    color: white;
   }
-  
-  .card-text {
-    font-size: 18px;
-    color: #555;
+
+  /* Menú desplegable */
+  .menu-desplegable {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background-color: #444;
+    top: 100%; /* Debajo del botón */
+    left: 0; /* Alineado a la izquierda */
+    width: 100%; /* Ocupa todo el ancho (tipo móvil) */
+    padding: 0;
+    border-radius: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
   }
-  
-  .btn {
-    font-size: 18px;
-    padding: 10px 20px;
-    border-radius: 4px;
-    background-color: #337ab7;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+
+  .menu-desplegable.show {
+    display: block; /* Mostrar menú */
   }
-  
-  .btn:hover {
-    background-color: #23527c;
+
+  .menu-desplegable li {
+    margin: 0;
+    border-bottom: 1px solid #555; /* Línea separadora entre ítems */
+  }
+
+  .menu-desplegable li:last-child {
+    border-bottom: none; /* Sin borde en el último ítem */
+  }
+
+  .menu-desplegable a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Asegura que ocupe todo el ancho */
+  }
+
+  .menu-desplegable a:hover {
+    background-color: #555; /* Efecto hover */
   }

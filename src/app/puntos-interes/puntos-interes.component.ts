@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuComponent } from "../menu/menu.component";
+import { MenuComponent } from "../menu/menu.component"; // Importamos el componente del menú
+import { isPlatformServer } from '@angular/common';
+
 
 @Component({
   selector: 'app-puntos-interes',
   standalone: true,
   templateUrl: './puntos-interes.component.html',
   styleUrls: ['./puntos-interes.component.css'],
-  imports: [CommonModule, MenuComponent]
+  imports: [CommonModule, MenuComponent] // Registramos el componente del menú como una dependencia
 })
-export class PuntosInteresComponent {
+export class PuntosInteresComponent implements AfterViewInit {
+  constructor(@Inject(PLATFORM_ID) private platformId: any) { }
+
   lugares = [
     {
       nombre: 'Torre Eiffel',
@@ -46,37 +50,35 @@ export class PuntosInteresComponent {
       descripcion: 'Una antigua ciudadela inca en Perú.',
       imagen: 'https://caminoincamachupicchu.org/cmingutd/wp-content/uploads/2021/06/machu-picchu-llama.jpg',
       coordenadas: { lat: -13.163333, lng: -72.516667 }
-    }/* ,
-    {
-      nombre: 'Cristo Redentor',
-      descripcion: 'Un monumento de Jesucristo en Río de Janeiro, Brasil.',
-      imagen: 'https://www.rio.com/images/rio-de-janeiro/cristo-redentor.jpg',
-      coordenadas: { lat: -22.906847, lng: -43.210487 }
-    },
-    {
-      nombre: 'Chichén Itzá',
-      descripcion: 'Una antigua ciudad maya en México.',
-      imagen: 'https://www.mexicoescultura.com/wp-content/uploads/2019/03/Chichen-Itza-1.jpg',
-      coordenadas: { lat: 20.682778, lng: -88.568333 }
-    },
-    {
-      nombre: 'La Alhambra',
-      descripcion: 'Un palacio y fortaleza en Granada, España.',
-      imagen: 'https://www.spain.info/export/sites/corpus/es/_jcr_content/par/imagen.dam_0.jpg',
-      coordenadas: { lat: 37.176333, lng: -3.588611 }
-    },
-    {
-      nombre: 'El Partenón',
-      descripcion: 'Un antiguo templo en Atenas, Grecia.',
-      imagen: 'https://www.greece-is.com/wp-content/uploads/2019/03/partnenon-1.jpg',
-      coordenadas: { lat: 37.971667, lng: 23.726389 }
-    } */
+    }
   ];
+
+  ngAfterViewInit(): void {
+    if (!isPlatformServer(this.platformId)) {
+      this.solicitarUbicacion();
+    }
+  }
+
+  solicitarUbicacion(): void {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          alert(`Tu ubicación actual es: \nLatitud: ${latitude}\nLongitud: ${longitude}`);
+        },
+        (error) => {
+          alert('Error al obtener la ubicación actual');
+        }
+      );
+    } else {
+      alert('La geolocalización no está disponible en este dispositivo');
+    }
+  }
 
   abrirMapa(event: any, lugar: any) {
     console.log('Función abrirMapa llamada');
     event.preventDefault();
     const coordenadas = lugar.coordenadas;
-    window.open(`https://www.google.com/maps/place/${coordenadas.lat},${coordenadas.lng}`, '_blank');
+    alert(`Coordenadas: ${coordenadas.lat}, ${coordenadas.lng}`);
   }
 }
